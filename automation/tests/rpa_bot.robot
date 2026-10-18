@@ -78,7 +78,8 @@ Step 2: RPA Bot Processes Application (As Seller)
     Run Keyword If    ${pending_count} > 0    Process First Pending Application
     
     # Switch to Processed Tab to verify
-    Click Element    xpath=//button[contains(text(), 'Processed Applications')]
+    Wait Until Page Contains Element    xpath=//*[self::a or self::button][contains(text(), 'Processed Applications')]
+    Click Element    xpath=//*[self::a or self::button][contains(text(), 'Processed Applications')]
     Wait Until Page Contains Element    xpath=//div[@id='tab-processed']//tr[.//option[@selected and @value='AI Reviewed']]
     
     Close Browser
