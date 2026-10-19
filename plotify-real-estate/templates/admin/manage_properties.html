@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-page">
+  <div class="container">
+
+    <h1 class="admin-title">All Properties</h1>
+
+    <div class="property-table">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Location</th>
+            <th>Owner</th>
+            <th>Contact</th>
+            <th>Docs</th>
+            <th>Map</th>
+            <th>Amenities</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for p in properties %}
+          <tr>
+            <td>{{ p.title }}</td>
+            <td>{{ p.price }}</td>
+            <td>{{ p.location }}</td>
+            <td>{{ p.owner_name }}</td>
+            <td>{{ p.phone }}</td>
+
+            <!-- DOCUMENTS -->
+            <td>
+              {% if p.identity_doc %}
+                <a href="/static/uploads/{{ p.identity_doc }}" target="_blank">ID</a><br>
+              {% endif %}
+              {% if p.ownership_doc %}
+                <a href="/static/uploads/{{ p.ownership_doc }}" target="_blank">Owner</a>
+              {% endif %}
+            </td>
+
+            <!-- MAP -->
+            <td>
+              {% if p.map_link %}
+                <a href="{{ p.map_link }}" target="_blank">View</a>
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+            <!-- AMENITIES -->
+            <td style="max-width:150px;">
+              {{ p.amenities }}
+            </td>
+
+            <!-- STATUS -->
+            <td>
+  <span class="status-badge status-ready">
+    {{ p.status }}
+  </span>
+</td>
+
+
+            <!-- ACTIONS -->
+            <td>
+              <a href="{{ url_for('admin.edit_property', id=p.id) }}" class="view-btn">
+  Edit
+</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

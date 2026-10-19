@@ -1,0 +1,36 @@
+{% extends "auth/auth_base.html" %}
+{% block content %}
+
+  <section class="auth-section">
+  <div class="auth-card">
+
+  <!-- BRAND LOGO -->
+  <div class="auth-logo">
+    <img src="{{ url_for('static', filename='images/plotify-logo.png') }}" alt="Plotify">
+  </div>
+
+  <h2>Welcome Back <span class="wave">👋</span></h2>
+  <p class="auth-sub">Login to continue</p>
+
+
+    <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form" autocomplete="on">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Enter your password" required>
+      </div>
+
+      <button type="submit" class="auth-btn">Login</button>
+    </form>
+
+    <p class="auth-footer">
+      Don’t have an account?
+      <a href="{{ url_for('auth.signup') }}">Sign up</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

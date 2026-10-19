@@ -1,0 +1,53 @@
+{% extends "auth/auth_base.html" %}
+{% block content %}
+
+  <section class="auth-section">
+  <div class="auth-card">
+
+
+  <div class="auth-logo">
+    <img src="{{ url_for('static', filename='images/plotify-logo.png') }}" alt="Plotify">
+  </div>
+
+  <h2>Create Account ✨</h2>
+  <p class="auth-sub">Join Plotify to buy, rent or list properties</p>
+
+    <form method="POST" action="{{ url_for('auth.signup') }}" class="auth-form" autocomplete="on">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input id="name" name="name" type="text" placeholder="Your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="role">I am a</label>
+        <select id="role" name="role" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; margin-top: 0.3rem;" required>
+          <option value="buyer">Buyer / Tenant</option>
+          <option value="seller">Seller / Landlord</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Create a password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirm">Confirm Password</label>
+        <input id="confirm" name="confirm" type="password" placeholder="Re-enter password" required>
+      </div>
+
+      <button type="submit" class="auth-btn">Create Account</button>
+    </form>
+
+    <p class="auth-footer">
+      Already have an account?
+      <a href="{{ url_for('auth.login') }}">Login</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

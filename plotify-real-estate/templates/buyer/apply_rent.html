@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="auth-section">
+  <div class="auth-card" style="max-width: 600px; width: 90%;">
+
+    <h2>Apply for Rent ✨</h2>
+    <p class="auth-sub">Submit your details to rent: <strong>{{ property.title }}</strong></p>
+
+    <!-- enctype="multipart/form-data" is required to upload files -->
+    <form method="POST" action="{{ url_for('rent.apply_rent', id=property.id) }}" class="auth-form" enctype="multipart/form-data">
+      
+      <div class="form-group">
+        <label for="applicant_name">Full Name</label>
+        <input id="applicant_name" name="applicant_name" type="text" placeholder="Your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input id="phone" name="phone" type="text" placeholder="+91 xxxxx xxxxx" required>
+      </div>
+
+      <div class="form-group">
+        <label for="employment_status">Employment Status</label>
+        <select id="employment_status" name="employment_status" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; margin-top: 0.3rem;" required>
+          <option value="Employed">Employed (Full-Time)</option>
+          <option value="Self-Employed">Self-Employed</option>
+          <option value="Student">Student</option>
+          <option value="Unemployed">Unemployed / Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="monthly_income">Monthly Income (in INR)</label>
+        <input id="monthly_income" name="monthly_income" type="number" placeholder="e.g. 50000" required>
+      </div>
+
+      <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+      <h4>Required Documents</h4>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Please upload valid documents for verification by our RPA system.</p>
+
+      <div class="form-group">
+        <label for="identity_doc">Government ID (Aadhar/PAN/Passport)</label>
+        <input id="identity_doc" name="identity_doc" type="file" accept=".pdf,.png,.jpg,.jpeg" required>
+      </div>
+
+      <div class="form-group">
+        <label for="income_proof_doc">Proof of Income (Payslips / Offer Letter)</label>
+        <input id="income_proof_doc" name="income_proof_doc" type="file" accept=".pdf,.png,.jpg,.jpeg" required>
+      </div>
+
+      <div class="form-group">
+        <label for="bank_statement_doc">Bank Statement (Last 3 Months)</label>
+        <input id="bank_statement_doc" name="bank_statement_doc" type="file" accept=".pdf,.png,.jpg,.jpeg" required>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Additional Message (Optional)</label>
+        <textarea id="message" name="message" rows="3" placeholder="Anything else you'd like the owner to know?" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; margin-top: 0.3rem;"></textarea>
+      </div>
+
+      <button type="submit" class="auth-btn" style="margin-top: 10px;">Submit Application</button>
+    </form>
+
+    <p class="auth-footer">
+      <a href="{{ url_for('rent.rent_details', id=property.id) }}">Cancel & Go Back</a>
+    </p>
+
+  </div>
+</section>
+
+{% endblock %}

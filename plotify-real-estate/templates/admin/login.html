@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="auth-section">
+  <div class="auth-card">
+    <h2>Admin Login</h2>
+
+    <form method="POST">
+      <div class="form-group">
+        <label>Username</label>
+        <input name="username" required>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" required>
+      </div>
+
+      <button class="auth-btn">Login</button>
+    </form>
+
+    {% if error %}
+      <p style="color:red; margin-top:10px;">{{ error }}</p>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}

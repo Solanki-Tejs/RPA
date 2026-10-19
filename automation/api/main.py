@@ -113,7 +113,7 @@ def run_robot_bot(req: dict):
     bot_status["logs"] = f"Bot started task '{req['task']}' as user '{req['email']}'...\n"
     
     # We will point to specific robot scripts based on the task selected
-    script_name = "rpa_bot.robot" # Default for now
+    script_name = "auto_approve.robot" # Default fallback
     if req["task"] == "auto_approve":
         script_name = "auto_approve.robot"
     elif req["task"] == "export_csv":

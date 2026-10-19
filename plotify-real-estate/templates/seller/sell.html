@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="sell-page">
+
+  <div class="sell-card">
+    <h1>Sell / Rent Your Property</h1>
+    <p class="subtitle">
+      List your property and reach genuine buyers across India
+    </p>
+
+```
+<form class="sell-form" method="POST" enctype="multipart/form-data">
+
+  <!-- PROPERTY DETAILS -->
+  <h3 class="form-section">🏠 Property Details</h3>
+
+  <div class="form-group">
+    <label>Property Title</label>
+    <input name="title" type="text" placeholder="Eg: 2BHK Apartment in Anna Nagar" required>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Price</label>
+      <input name="price" type="text" placeholder="Eg: ₹25,00,000 or ₹15,000/month" required>
+    </div>
+
+    <div class="form-group">
+      <label>Category</label>
+      <select name="category" required>
+        <option value="">Select Category</option>
+        <option>Sell</option>
+        <option>Rent</option>
+        <option>Commercial</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Location</label>
+    <input name="location" type="text" placeholder="Eg: Anna Nagar, Chennai" required>
+  </div>
+
+  <div class="form-group">
+    <label>Google Map Link</label>
+    <input name="map_link" type="text" placeholder="Paste Google Maps location link here">
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <textarea name="description" rows="4" placeholder="Describe property features, nearby schools, hospitals, transport, etc..." required></textarea>
+  </div>
+
+  <!-- PROPERTY SPECIFICATIONS -->
+  <h3 class="form-section">📊 Property Specifications</h3>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Bedrooms</label>
+      <input name="bedrooms" type="number" placeholder="Eg: 2" required>
+    </div>
+
+    <div class="form-group">
+      <label>Bathrooms</label>
+      <input name="bathrooms" type="number" placeholder="Eg: 2" required>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Area (sqft)</label>
+      <input name="area" type="text" placeholder="Eg: 1200 sqft" required>
+    </div>
+
+    <div class="form-group">
+      <label>Property Type</label>
+      <select name="type" required>
+        <option value="House">House</option>
+        <option value="Apartment">Apartment</option>
+        <option value="Villa">Villa</option>
+        <option value="Commercial">Commercial</option>
+        <option value="Farm House">Farm House</option>
+        <option value="Beach House">Beach House</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ADVANCED FIELDS -->
+  <div class="form-row">
+    <div class="form-group">
+      <label>Floor Number</label>
+      <input name="floor" type="number" placeholder="Eg: 3">
+    </div>
+
+    <div class="form-group">
+      <label>Total Floors</label>
+      <input name="total_floors" type="number" placeholder="Eg: 5">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Furnishing</label>
+      <select name="furnishing">
+        <option>Unfurnished</option>
+        <option>Semi Furnished</option>
+        <option>Fully Furnished</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Facing</label>
+      <select name="facing">
+        <option>North</option>
+        <option>South</option>
+        <option>East</option>
+        <option>West</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- AMENITIES -->
+  <h3 class="form-section">✨ Amenities</h3>
+
+  <div class="amenities-select">
+    <label><input type="checkbox" name="amenities" value="Lift"> Lift</label>
+    <label><input type="checkbox" name="amenities" value="Parking"> Parking</label>
+    <label><input type="checkbox" name="amenities" value="Power Backup"> Power Backup</label>
+    <label><input type="checkbox" name="amenities" value="Security"> Security</label>
+    <label><input type="checkbox" name="amenities" value="Water Supply"> Water Supply</label>
+    <label><input type="checkbox" name="amenities" value="Play Area"> Children Play Area</label>
+  </div>
+
+  <!-- OWNER DETAILS -->
+  <h3 class="form-section">👤 Owner Contact Details</h3>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Owner Name</label>
+      <input name="owner_name" type="text" placeholder="Eg: Ramesh Kumar" required>
+    </div>
+
+    <div class="form-group">
+      <label>Mobile Number</label>
+      <input name="phone" type="tel" pattern="[0-9]{10}" placeholder="Eg: 9876543210" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Email Address</label>
+    <input name="email" type="email" placeholder="Eg: owner@gmail.com">
+  </div>
+
+  <!-- DOCUMENTS -->
+  <h3 class="form-section">📄 Verification Documents</h3>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Identity Proof</label>
+      <input name="identity_doc" type="file" required>
+    </div>
+
+    <div class="form-group">
+      <label>Ownership Proof</label>
+      <input name="ownership_doc" type="file" required>
+    </div>
+  </div>
+
+  <!-- PROPERTY IMAGES -->
+  <h3 class="form-section">🖼 Property Images</h3>
+
+  <div class="form-group">
+    <input name="images" type="file" required>
+  </div>
+
+  <button type="submit" class="submit-btn">
+    Post Property for Review
+  </button>
+
+</form>
+```
+
+  </div>
+
+</section>
+
+{% endblock %}

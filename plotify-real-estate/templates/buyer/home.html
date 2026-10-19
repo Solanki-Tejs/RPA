@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- ================= HERO ================= -->
+<section class="hero" style="background-image:url('{{ url_for('static', filename='images/hero-home.jpg') }}')">
+  <div class="hero-overlay">
+    <div class="hero-content">
+
+      {% if session.get("user_role") == "seller" %}
+      <h1>List Your Property and Find Tenants Fast</h1>
+      <p class="hero-sub">
+        Manage applications, automate screening, and secure tenants easily.
+      </p>
+
+      <!-- HERO TABS (SELLER) -->
+      <div class="hero-tabs" style="justify-content: center; margin-bottom: 20px;">
+        <a href="{{ url_for('sell.sell_property') }}" class="active">List a Property</a>
+        <a href="{{ url_for('dashboard.seller_dashboard', tab='new') }}">Manage Applications</a>
+        <a href="{{ url_for('dashboard.seller_dashboard', tab='properties') }}">My Properties</a>
+      </div>
+      {% else %}
+      <h1>Find Your Perfect Property with Confidence</h1>
+      <p class="hero-sub">
+        Verified homes and secure listings across India
+      </p>
+
+      <!-- HERO TABS (BUYER/GUEST) -->
+      <div class="hero-tabs">
+        <a href="/buy" class="active">Buy</a>
+        <a href="/rent">Rent</a>
+        {% if not session.get("user_role") %}
+        <a href="/sell">Sell</a>
+        {% endif %}
+      </div>
+
+      <!-- SEARCH -->
+      <form action="/buy" method="GET" class="search-box">
+        <input name="location" placeholder="Search city">
+        <button type="submit">🔍</button>
+      </form>
+      {% endif %}
+
+
+      <div class="hero-trust">
+        <span>✔ Admin-Verified Properties</span>
+        <span>✔ Genuine Owners & Tenants</span>
+        <span>✔ Secure Listings Across India</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ================= PROPERTIES ================= -->
+<section class="property-section">
+  <div class="container">
+
+    <h2 class="section-title">Explore Properties by Category</h2>
+
+    <div class="help-tabs">
+      <button class="help-tab active" data-filter="all">🏠 All</button>
+      <button class="help-tab" data-filter="house">🏡 House</button>
+      <button class="help-tab" data-filter="apartment">🏢 Apartment</button>
+      <button class="help-tab" data-filter="villa">🏘 Villa</button>
+      <button class="help-tab" data-filter="commercial">🏬 Commercial</button>
+      <button class="help-tab" data-filter="farm">🚜 Farm House</button>
+      <button class="help-tab" data-filter="beach">🏖 Beach House</button>
+    </div>
+
+    <div class="property-grid">
+
+      {% for p in properties %}
+      <div class="property-card"
+        data-category="{% if 'house' in p.type|lower %}house{% elif 'apartment' in p.type|lower %}apartment{% elif 'villa' in p.type|lower %}villa{% elif 'commercial' in p.type|lower %}commercial{% elif 'farm' in p.type|lower %}farm{% elif 'beach' in p.type|lower %}beach{% else %}other{% endif %}">
+
+        <div class="property-img">
+          <img src="{{ url_for('static', filename='uploads/' + (p.image or 'sample-house.jpg')) }}" alt="property">
+
+          {% if p.verified %}
+          <span class="badge verified">✔ Verified</span>
+          {% else %}
+          <span class="badge unverified">⚠ Unverified</span>
+          {% endif %}
+
+          <button class="like-btn">♡</button>
+        </div>
+        <div class="property-body">
+          <h3 class="price">{{ p.price }}</h3>
+          <p class="meta">{{ p.title }} · {{ p.area }}</p>
+          <p class="location">{{ p.location }}</p>
+        </div>
+
+        <div class="property-footer">
+          <a href="{{ url_for('buy.property_details', id=p.id) }}" class="details-btn">
+            View Details
+          </a>
+          <span class="posted">Posted {{ p.posted }}</span>
+        </div>
+
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <a href="{{ url_for('buy.buy') }}" class="view-btn" style="margin-top:20px; display:inline-block">
+      Explore All Properties →
+    </a>
+
+  </div>
+</section>
+
+
+
+
+<!-- ================= JS ================= -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+
+
+    // PROPERTY FILTER
+    const tabs = document.querySelectorAll(".help-tab");
+    const cards = document.querySelectorAll(".property-card");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        const filter = tab.dataset.filter.trim().toLowerCase();
+
+        cards.forEach(card => {
+          const category = card.dataset.category.trim().toLowerCase();
+
+          if (filter === "all" || category.includes(filter)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+      });
+    });
+
+  });
+
+</script>
+
+
+{% endblock %}

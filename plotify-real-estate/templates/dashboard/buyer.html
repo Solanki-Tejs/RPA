@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="admin-page">
+  <div class="admin-header" style="margin-bottom: 25px;">
+    <h1 style="margin: 0 0 5px 0;">My Applications</h1>
+    <p style="margin: 0; color: #666;">Track the status of your rental applications</p>
+  </div>
+
+  <div class="admin-table-container">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Property Details</th>
+          <th>Owner / Contact</th>
+          <th>Applied On</th>
+          <th>Status</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for app in applications %}
+        <tr>
+          <td>
+            <strong>{{ app.property.title if app.property else 'N/A' }}</strong><br>
+            <span style="font-size: 0.85rem; color: #666;">📍 {{ app.property.location if app.property else 'N/A'
+              }}</span><br>
+            <span class="rent-amount" style="font-size: 0.9rem; color: #27ae60; font-weight: bold;">₹{{
+              app.property.price if app.property else 'N/A' }}</span>
+          </td>
+          <td>
+            <strong>{{ app.property.owner_name if app.property and app.property.owner_name else 'Seller' }}</strong><br>
+            <span style="font-size: 0.85rem; color: #555;">📞 {{ app.property.phone if app.property and
+              app.property.phone else 'N/A' }}</span><br>
+            <span style="font-size: 0.85rem; color: #555;">✉️ {{ app.property.email if app.property and
+              app.property.email else 'N/A' }}</span>
+          </td>
+          <td>{{ app.applied_on }}</td>
+          <td>
+            {% if app.status == 'Approved' %}
+            <strong style="color: #16a34a; font-weight: 700;">Approved</strong>
+            {% elif app.status == 'Pending' %}
+            <strong style="color: #d97706; font-weight: 700;">Pending</strong>
+            {% elif app.status == 'AI Reviewed' %}
+            <strong style="color: #2563eb; font-weight: 700;">AI Reviewed</strong>
+            {% elif app.status == 'Rejected' %}
+            <strong style="color: #dc2626; font-weight: 700;">Rejected</strong>
+            {% else %}
+            <strong style="font-weight: 700;">{{ app.status }}</strong>
+            {% endif %}
+          </td>
+          <td>
+            {% if app.ai_suitability_score %}
+            <strong style="color: #2980b9;">{{ app.ai_suitability_score | replace('Rent is', 'Amount is') }}</strong>
+            {% else %}
+            <span style="color: #999;">Pending Review</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" style="text-align: center; padding: 2rem;">
+            You have not applied to any rental properties yet.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

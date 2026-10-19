@@ -1,0 +1,98 @@
+/* ===============================
+   PREMIUM AGENT CARD
+=============================== */
+
+.agent-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  text-align: center;
+}
+
+.agent-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 55px rgba(0,0,0,0.14);
+}
+
+/* VERIFIED BADGE — PROFESSIONAL STYLE */
+.badge.verified {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(34,197,94,0.12);
+  color: #16a34a;
+  border: 1px solid #22c55e;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* AGENT INFO */
+.agent-info h3 {
+  font-size: 20px;
+  margin-bottom: 4px;
+  color: #1f2937;
+}
+
+.role {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.location {
+  font-size: 13px;
+  color: #888;
+}
+
+.exp {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #1f3c88;
+  font-weight: 600;
+}
+
+/* ACTION BUTTON AREA */
+.agent-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  border-top: 1px solid #eee;
+  padding-top: 16px;
+}
+
+/* CALL BUTTON */
+.call-btn {
+  background: linear-gradient(135deg,#22c55e,#16a34a);
+  color: white;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(34,197,94,0.3);
+}
+
+.call-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* VIEW PROFILE BUTTON */
+.view-btn {
+  background: #1f3c88;
+  color: white;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.view-btn:hover {
+  background: #162d66;
+  transform: translateY(-2px);
+}

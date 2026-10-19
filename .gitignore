@@ -69,7 +69,8 @@ buyer_approved_properties.csv
 # Uploads & Runtime Directories
 # ==============================================================================
 plotify-real-estate/static/uploads/*
-!plotify-real-estate/static/uploads/house2.png
+!plotify-real-estate/static/uploads/*.png
+!plotify-real-estate/static/uploads/*.jpg
 !plotify-real-estate/static/uploads/.gitkeep
 
 automation/api/uploads/*

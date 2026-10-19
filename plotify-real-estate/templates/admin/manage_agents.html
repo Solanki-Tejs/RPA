@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-page">
+  <div class="container">
+
+    <h1>Manage Agents</h1>
+
+    <!-- ADD AGENT FORM -->
+    <form method="POST" action="/admin/add-agent" class="sell-form">
+
+      <div class="form-row">
+        <input name="name" placeholder="Agent Name" required>
+        <input name="specialization" placeholder="Specialization" required>
+      </div>
+
+      <div class="form-row">
+        <input name="city" placeholder="City" required>
+        <input name="experience" placeholder="Experience (years)" required>
+      </div>
+
+      <input name="phone" placeholder="Phone Number" required>
+
+      <button type="submit" class="submit-btn">Add Agent</button>
+    </form>
+
+    <hr style="margin:30px 0;">
+
+    <!-- AGENTS LIST -->
+    <div class="property-grid">
+
+      {% for a in agents %}
+      <div class="agent-card">
+
+        <div class="agent-body">
+          <h3>{{ a.name }}</h3>
+          <p>{{ a.specialization }}</p>
+          <p>{{ a.city }}</p>
+          <p>{{ a.experience }} yrs exp</p>
+          <p>{{ a.phone }}</p>
+        </div>
+
+        <div class="agent-actions">
+          <a href="/admin/delete-agent/{{ a.id }}" class="view-btn">
+            Delete
+          </a>
+        </div>
+
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

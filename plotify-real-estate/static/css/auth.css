@@ -1,0 +1,133 @@
+/* =====================
+   AUTH PAGES (LOGIN / SIGNUP)
+===================== */
+
+.auth-body {
+  background: #f4f6f8;
+  min-height: 100vh;
+}
+
+/* CENTER LAYOUT */
+.auth-section {
+  min-height: 100vh;
+  width: 100%;
+  background: #f4f6f8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 20px;
+}
+
+/* AUTH CARD */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 40px 36px;
+
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  animation: fadeUp 0.6s ease;
+}
+
+/* TITLE */
+.auth-card h2 {
+  font-size: 28px;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+
+.auth-sub {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+/* FORM */
+.auth-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #e6e9ee;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.form-group input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 6px 18px rgba(49,64,86,0.08);
+}
+
+/* BUTTON */
+.auth-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  background: var(--blue);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background .25s ease, transform .2s ease;
+}
+
+.auth-btn:hover {
+  background: #1f2f3f;
+  transform: translateY(-2px);
+}
+
+/* FOOTER */
+.auth-footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.auth-footer a {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* LOGO */
+.auth-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.auth-logo img {
+  height: 48px;
+  object-fit: contain;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 30px 22px;
+  }
+}

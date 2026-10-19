@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="admin-form">
+  <h2>Edit Property</h2>
+
+  <form method="POST">
+
+    <label>Title</label>
+    <input type="text" name="title" value="{{ property.title }}">
+
+    <label>Price</label>
+    <input type="text" name="price" value="{{ property.price }}">
+
+    <label>Location</label>
+    <input type="text" name="location" value="{{ property.location }}">
+
+    <label>Description</label>
+    <textarea name="description">{{ property.description }}</textarea>
+
+    <label>Bedrooms</label>
+    <input type="text" name="bedrooms" value="{{ property.bedrooms }}">
+
+    <label>Bathrooms</label>
+    <input type="text" name="bathrooms" value="{{ property.bathrooms }}">
+
+    <label>Area</label>
+    <input type="text" name="area" value="{{ property.area }}">
+
+    <label>Property Type</label>
+    <input type="text" name="type" value="{{ property.type }}">
+
+    <label>Floor</label>
+    <input type="text" name="floor" value="{{ property.floor }}">
+
+    <label>Total Floors</label>
+    <input type="text" name="total_floors" value="{{ property.total_floors }}">
+
+    <label>Facing</label>
+    <input type="text" name="facing" value="{{ property.facing }}">
+
+    <label>Furnishing</label>
+    <input type="text" name="furnishing" value="{{ property.furnishing }}">
+
+    <label>Amenities</label>
+    <input type="text" name="amenities" value="{{ property.amenities }}">
+
+    <label>Google Map Link</label>
+    <input type="text" name="map_link" value="{{ property.map_link }}">
+
+    <label>Owner Name</label>
+    <input type="text" name="owner_name" value="{{ property.owner_name }}">
+
+    <label>Phone</label>
+    <input type="text" name="phone" value="{{ property.phone }}">
+
+    <label>Email</label>
+    <input type="text" name="email" value="{{ property.email }}">
+
+    <button type="submit">Update Property</button>
+
+  </form>
+</div>
+
+{% endblock %}

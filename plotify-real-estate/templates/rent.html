@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="buy-page">
+
+  <div class="buy-header">
+    <h1>Properties for Rent</h1>
+    <p>Find affordable rental homes in your preferred location</p>
+  </div>
+
+  <div class="buy-search">
+    <input type="text" id="filter-location" placeholder="City or Area">
+    <select id="filter-type">
+      <option value="">All Types</option>
+      <option value="Apartment">Apartment</option>
+      <option value="House">House</option>
+    </select>
+    <input type="text" id="filter-budget" placeholder="Any Budget" inputmode="numeric">
+    <button type="button" class="search-btn" id="search-btn" onclick="filterProperties()">Search</button>
+  </div>
+
+  <div class="property-grid" id="property-grid">
+
+    {% if properties %}
+      {% for p in properties %}
+
+      <div class="property-card"
+           data-location="{{ (p.location or '') | lower }}"
+           data-title="{{ (p.title or '') | lower }}"
+           data-type="{{ (p.type or '') | lower }}"
+           data-price="{{ p.price or '0' }}"
+           data-applied="{% if applied_ids and p.id in applied_ids %}true{% else %}false{% endif %}">
+
+        <div class="property-img">
+
+          {% if p.image %}
+            <img src="{{ url_for('static', filename='uploads/' + p.image) }}">
+          {% else %}
+            <img src="{{ url_for('static', filename='images/sample-house.jpg') }}">
+          {% endif %}
+
+          {% if applied_ids and p.id in applied_ids %}
+            <span class="badge applied" style="background: #10b981; color: white; position: absolute; top: 10px; left: 10px; z-index: 3; font-weight: 700; font-size: 0.72rem; padding: 4px 8px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">✔ Applied</span>
+          {% endif %}
+
+          {% if p.verified %}
+            <span class="badge verified" style="{% if applied_ids and p.id in applied_ids %}top: 36px;{% endif %}">✔ Verified</span>
+          {% else %}
+            <span class="badge unverified" style="{% if applied_ids and p.id in applied_ids %}top: 36px;{% endif %}">⚠ Unverified</span>
+          {% endif %}
+
+          <button class="like-btn" onclick="toggleLike(this)">♡</button>
+        </div>
+
+        <div class="property-body">
+          <h3 class="price">{{ p.price }}</h3>
+          <p class="meta">{{ p.title }} · {{ p.area }}</p>
+          <p class="location">{{ p.location }}</p>
+        </div>
+
+        <div class="property-footer">
+          <a href="{{ url_for('rent.rent_details', id=p.id) }}"
+             class="view-btn">
+             View Details
+          </a>
+
+          <span class="posted">
+            {{ p.posted or "Recently Added" }}
+          </span>
+        </div>
+
+      </div>
+
+      {% endfor %}
+      <p id="no-results-msg" style="display:none; text-align:center; grid-column: 1 / -1; padding: 40px; color: #888; font-size: 1.1rem; width: 100%;">
+        No rental properties found matching your criteria.
+      </p>
+    {% else %}
+      <p>No rental properties available.</p>
+    {% endif %}
+
+  </div>
+
+</section>
+
+<script>
+  const loggedIn = {{ logged_in | default(False) | tojson }};
+
+  function toggleLike(btn) {
+    if (!loggedIn) {
+      alert("Please login to save properties");
+      return;
+    }
+
+    btn.classList.toggle("liked");
+    btn.textContent =
+      btn.classList.contains("liked") ? "♥" : "♡";
+  }
+
+  function parsePrice(str) {
+    if (!str) return 0;
+    let s = String(str).toLowerCase().trim();
+    s = s.replace(/₹/g, '').replace(/,/g, '').replace(/\/.*$/, '').trim();
+    if (s.includes('cr')) {
+      const num = parseFloat(s.replace(/cr.*$/, '').trim());
+      return isNaN(num) ? 0 : num * 10000000;
+    }
+    if (s.includes('l') || s.includes('lac') || s.includes('lakh')) {
+      const num = parseFloat(s.replace(/(lac|lakh|l).*$/, '').trim());
+      return isNaN(num) ? 0 : num * 100000;
+    }
+    if (s.includes('k')) {
+      const num = parseFloat(s.replace(/k.*$/, '').trim());
+      return isNaN(num) ? 0 : num * 1000;
+    }
+    const num = parseFloat(s);
+    return isNaN(num) ? 0 : num;
+  }
+
+  function filterProperties() {
+    const locInput = document.getElementById('filter-location');
+    const typeInput = document.getElementById('filter-type');
+    const budgetInput = document.getElementById('filter-budget');
+
+    const locVal = locInput ? locInput.value.trim().toLowerCase() : '';
+    const typeVal = typeInput ? typeInput.value.trim().toLowerCase() : '';
+    const rawBudget = budgetInput ? budgetInput.value.trim() : '';
+    const budgetVal = rawBudget ? parsePrice(rawBudget) : 0;
+
+    const cards = document.querySelectorAll('.property-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const cardLoc = (card.getAttribute('data-location') || '').toLowerCase();
+      const cardTitle = (card.getAttribute('data-title') || '').toLowerCase();
+      const cardType = (card.getAttribute('data-type') || '').toLowerCase();
+      const cardPrice = parsePrice(card.getAttribute('data-price') || '0');
+
+      const matchesLoc = !locVal || cardLoc.includes(locVal) || cardTitle.includes(locVal);
+      const matchesType = !typeVal || cardType.includes(typeVal) || card.innerText.toLowerCase().includes(typeVal);
+      const matchesBudget = !budgetVal || (cardPrice > 0 && cardPrice <= budgetVal);
+
+      if (matchesLoc && matchesType && matchesBudget) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    const noResults = document.getElementById('no-results-msg');
+    if (noResults) {
+      noResults.style.display = (visibleCount === 0 && cards.length > 0) ? 'block' : 'none';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const locInput = document.getElementById('filter-location');
+    const typeInput = document.getElementById('filter-type');
+    const budgetInput = document.getElementById('filter-budget');
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialLoc = urlParams.get('location') || '';
+    if (initialLoc && locInput && !locInput.value) {
+      locInput.value = initialLoc;
+    }
+
+    if (locInput) {
+      locInput.addEventListener('input', filterProperties);
+      locInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') filterProperties(); });
+    }
+    if (typeInput) {
+      typeInput.addEventListener('change', filterProperties);
+    }
+    if (budgetInput) {
+      budgetInput.addEventListener('input', filterProperties);
+      budgetInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') filterProperties(); });
+    }
+
+    if (initialLoc) {
+      filterProperties();
+    }
+  });
+</script>
+
+{% endblock %}

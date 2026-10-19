@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-page">
+  <div class="container">
+
+    <h1 class="admin-title">Admin Dashboard</h1>
+
+    <!-- QUICK ACTION BUTTONS -->
+    <div class="admin-actions">
+      <a href="/admin/properties" class="view-btn">Manage Properties</a>
+      <a href="/admin/applications" class="view-btn" style="background-color:#28a745;">Rental Apps</a>
+      <a href="/admin/users" class="view-btn">Users</a>
+      <a href="/admin/agents" class="view-btn">Agents</a>
+      <a href="/admin-logout" class="view-btn">Logout</a>
+    </div>
+
+    <!-- STATS -->
+    <div class="admin-stats">
+      <div class="stat-card">
+        <h3>{{ total }}</h3>
+        <p>Total Properties</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>{{ pending_count }}</h3>
+        <p>Pending Approval</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>{{ sold }}</h3>
+        <p>Sold</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>{{ rented }}</h3>
+        <p>Rented</p>
+      </div>
+    </div>
+
+    <!-- RECENT PENDING PROPERTIES -->
+    <h2 style="margin-top:40px;">Recent Pending Requests</h2>
+
+    <table class="admin-table">
+      <tr>
+        <th>Title</th>
+        <th>Location</th>
+        <th>Owner</th>
+        <th>Action</th>
+      </tr>
+
+      {% for p in pending[:5] %}
+      <tr>
+        <td>{{ p.title }}</td>
+        <td>{{ p.location }}</td>
+        <td>{{ p.owner_name }}</td>
+        <td>
+          <a href="/admin/approve/{{ p.id }}" class="approve-btn">Approve</a>
+          <a href="/admin/delete-pending/{{ p.id }}" class="delete-btn">Reject</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+  </div>
+</section>
+
+{% endblock %}

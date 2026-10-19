@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-page">
+  <div class="container">
+
+    <h1 class="admin-title">Rental Applications (RPA Inbox)</h1>
+    
+    <p>This queue is processed by the RPA Bot to analyze applicant suitability.</p>
+
+    <div class="property-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Applicant</th>
+            <th>Contact</th>
+            <th>Property</th>
+            <th>Financials</th>
+            <th>Documents</th>
+            <th>Status</th>
+            <th>Score</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for app in applications %}
+          <tr>
+            <td>
+              <strong>{{ app.applicant_name }}</strong><br>
+              <small>{{ app.applied_on }}</small>
+            </td>
+            <td>
+              {{ app.email }}<br>
+              {{ app.phone }}
+            </td>
+            <td>
+              <a href="{{ url_for('rent.rent_details', id=app.property_id) }}" target="_blank">
+                View Property
+              </a><br>
+              <span class="rent-amount">₹{{ app.property.price }}</span>
+            </td>
+            <td class="app-financials">
+              Employed: <span class="app-emp-status">{{ app.employment_status }}</span><br>
+              Income: ₹<span class="app-income">{{ app.monthly_income }}</span>
+            </td>
+            <td>
+              {% if app.identity_doc and app.identity_doc.strip() and app.identity_doc != 'None' %}
+                <a href="/static/uploads/{{ app.identity_doc }}" target="_blank">📄 ID</a><br>
+              {% else %}
+                <span style="color: #94a3b8; font-size: 0.85rem;">📄 ID (Not uploaded)</span><br>
+              {% endif %}
+              {% if app.income_proof_doc and app.income_proof_doc.strip() and app.income_proof_doc != 'None' %}
+                <a href="/static/uploads/{{ app.income_proof_doc }}" target="_blank">📄 Income Proof</a><br>
+              {% else %}
+                <span style="color: #94a3b8; font-size: 0.85rem;">📄 Income (Not uploaded)</span><br>
+              {% endif %}
+              {% if app.bank_statement_doc and app.bank_statement_doc.strip() and app.bank_statement_doc != 'None' %}
+                <a href="/static/uploads/{{ app.bank_statement_doc }}" target="_blank">📄 Bank Stmt</a>
+              {% else %}
+                <span style="color: #94a3b8; font-size: 0.85rem;">📄 Bank (Not uploaded)</span>
+              {% endif %}
+            </td>
+            
+            <td>
+              <span class="status-badge status-ready" style="font-weight:bold; color: {% if app.status == 'Approved' %}green{% elif app.status == 'Rejected' %}red{% elif app.status == 'AI Reviewed' %}blue{% else %}orange{% endif %};">
+                {{ app.status }}
+              </span>
+            </td>
+
+            <td>
+              <strong>{{ app.ai_suitability_score or "Not Analyzed" }}</strong>
+            </td>
+
+            <td style="min-width: 150px;">
+              <!-- RPA Bot / Admin Update Form -->
+              <form method="POST" action="{{ url_for('admin.update_application', id=app.id) }}">
+                <select name="status" style="width:100%; margin-bottom:5px;">
+                  <option value="Pending" {% if app.status == 'Pending' %}selected{% endif %}>Pending</option>
+                  <option value="AI Reviewed" {% if app.status == 'AI Reviewed' %}selected{% endif %}>AI Reviewed</option>
+                  <option value="Approved" {% if app.status == 'Approved' %}selected{% endif %}>Approved</option>
+                  <option value="Rejected" {% if app.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                </select>
+                <input type="text" name="ai_suitability_score" placeholder="Score" value="{{ app.ai_suitability_score or '' }}" style="width:100%; margin-bottom:5px; padding:2px;">
+                <button type="submit" class="view-btn" style="padding: 4px 8px; font-size:12px;">Save</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

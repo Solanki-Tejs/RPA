@@ -1,0 +1,93 @@
+/* =====================
+   BUY PAGE LAYOUT
+===================== */
+
+.buy-page {
+  padding: 40px 60px;
+}
+
+.buy-header {
+  margin-bottom: 30px;
+}
+
+.buy-header h1 {
+  font-size: 32px;
+  color: var(--blue);
+}
+
+.buy-header p {
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+
+/* =====================
+   SEARCH + FILTER SECTION
+===================== */
+
+.buy-search {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  margin-bottom: 35px;
+
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.buy-search input,
+.buy-search select {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.buy-search input:focus,
+.buy-search select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 4px 14px rgba(49,64,86,0.15);
+}
+
+.buy-search button {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.buy-search button:hover {
+  background: #1f2f3f;
+}
+
+
+/* =====================
+   PROPERTY LISTINGS GRID
+===================== */
+
+.buy-listings {
+  margin-top: 20px;
+}
+
+
+/* =====================
+   RESPONSIVE
+===================== */
+
+@media (max-width: 768px) {
+
+  .buy-page {
+    padding: 30px 20px;
+  }
+
+  .buy-search {
+    flex-direction: column;
+  }
+}

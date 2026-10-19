@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-page">
+  <div class="container">
+
+    <h1 class="admin-title">Users List</h1>
+
+    <div class="users-card">
+
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Last Login</th>
+            <th>Posted</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for u in users %}
+          <tr>
+            <td>{{ u.name }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.phone or "-" }}</td>
+            <td>{{ u.last_login or "-" }}</td>
+            <td>{{ u.properties|length }}</td>
+
+            <!-- STATUS -->
+            <td>
+              {% if u.is_blocked %}
+                <span class="blocked">Blocked</span>
+              {% else %}
+                <span class="active">Active</span>
+              {% endif %}
+            </td>
+
+            <!-- ACTIONS -->
+            <td>
+              <a href="/admin/block/{{ u.id }}" class="block-btn">Block</a>
+              <a href="/admin/delete-user/{{ u.id }}" class="delete-btn">Delete</a>
+            </td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

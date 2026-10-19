@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plotify</title>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .nav-tab-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      outline: none;
+      display: inline;
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container nav-inner">
+
+      <!-- LOGO -->
+      <a href="{{ url_for('home') }}" class="logo">
+        <img src="{{ url_for('static', filename='images/plotify-logo.png') }}" class="logo-img" alt="Plotify">
+
+      </a>
+
+      <!-- MENU -->
+      <nav class="nav-center">
+        {% if not session.get("user_role") or session.get("user_role") == "buyer" %}
+        <a href="{{ url_for('buy.buy') }}">Buy</a>
+        <a href="{{ url_for('rent.rent') }}">Rent</a>
+        <a href="{{ url_for('commercial.commercial') }}">Commercial</a>
+        {% if session.get("user_name") %}
+        <a href="{{ url_for('dashboard.buyer_dashboard') }}">My Applications</a>
+        {% endif %}
+        {% endif %}
+
+        {% if not session.get("user_role") or session.get("user_role") == "seller" %}
+        <a href="{{ url_for('sell.sell_property') }}">Sell</a>
+        {% if session.get("user_name") and session.get("user_role") == "seller" %}
+        <a href="{{ url_for('dashboard.seller_dashboard', tab='new') }}"><button type="button" class="nav-tab-btn" onclick="if(window.showTab){showTab('new'); return false;}">New Applications</button></a>
+        <a href="{{ url_for('dashboard.seller_dashboard', tab='processed') }}"><button type="button" class="nav-tab-btn" onclick="if(window.showTab){showTab('processed'); return false;}">Processed Applications</button></a>
+        <a href="{{ url_for('dashboard.seller_dashboard', tab='properties') }}"><button type="button" class="nav-tab-btn" onclick="if(window.showTab){showTab('properties'); return false;}">My Properties</button></a>
+        {% endif %}
+        {% endif %}
+      </nav>
+
+      <!-- RIGHT SIDE -->
+      <div class="nav-right">
+        {% if session.get("user_name") %}
+        <span class="user-name">Hi, {{ session.get("user_name") }}</span>
+        <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+        {% else %}
+        <a href="{{ url_for('auth.login') }}" class="login-btn">Login</a>
+        <a href="{{ url_for('auth.signup') }}" class="signup-btn">Sign Up</a>
+        {% endif %}
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ================= PAGE CONTENT ================= -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ================= GLOBAL JS ================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      /* HERO TAB ACTIVE STATE */
+      document.querySelectorAll(".hero-tabs span").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelector(".hero-tabs .active")?.classList.remove("active");
+          tab.classList.add("active");
+        });
+      });
+
+
+
+      /* HERO BACKGROUND SLIDER */
+      const hero = document.querySelector(".hero");
+      if (hero) {
+        const images = [
+          "/static/images/hero1.png",
+          "/static/images/hero2.png",
+          "/static/images/hero3.png"
+        ];
+
+        let index = 0;
+        hero.style.backgroundImage = `url('${images[0]}')`;
+
+        setInterval(() => {
+          index = (index + 1) % images.length;
+          hero.style.backgroundImage = `url('${images[index]}')`;
+        }, 5000);
+      }
+
+
+
+    });
+
+    const isLoggedIn = false; // later from session
+
+    document.querySelectorAll(".wishlist").forEach(icon => {
+      icon.addEventListener("click", () => {
+        if (!isLoggedIn) {
+          alert("Login to save properties");
+          return;
+        }
+        icon.classList.toggle("active");
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>
+
+</html>

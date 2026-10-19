@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="buy-page">
+
+  <!-- HEADER -->
+  <div class="buy-header">
+    <h1>Trusted Property Agents</h1>
+    <p>Connect with verified real estate experts across India</p>
+  </div>
+
+  <!-- AGENTS GRID -->
+  <div class="property-grid">
+
+    {% for a in agents %}
+    <div class="agent-card">
+
+      <!-- VERIFIED TAG -->
+      <span class="badge verified">✔ Verified</span>
+
+      <!-- AGENT DETAILS -->
+      <div class="agent-info">
+        <h3>{{ a.name }}</h3>
+        <p class="role">{{ a.specialization }}</p>
+        <p class="location">📍 {{ a.city }}</p>
+        <p class="exp">⭐ {{ a.experience }}+ years experience</p>
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="agent-actions">
+        <a href="tel:{{ a.phone }}" class="call-btn">📞 Call</a>
+        <a href="#" class="view-btn">View Profile</a>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+
+</section>
+
+{% endblock %}

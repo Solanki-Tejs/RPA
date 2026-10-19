@@ -1,0 +1,197 @@
+/* ===============================
+   SELL PAGE BACKGROUND
+=============================== */
+
+.sell-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f4f7fb, #eef2f7);
+  padding: 50px 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===============================
+   MAIN CARD
+=============================== */
+
+.sell-card {
+  width: 100%;
+  max-width: 920px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.sell-card:hover {
+  box-shadow: 0 35px 90px rgba(0,0,0,0.12);
+}
+
+/* TITLE */
+.sell-card h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.sell-card .subtitle {
+  color: #6b7280;
+  margin-top: 6px;
+  margin-bottom: 28px;
+  font-size: 15px;
+}
+
+/* ===============================
+   SECTION TITLES
+=============================== */
+
+.form-section {
+  margin-top: 34px;
+  margin-bottom: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  padding-top: 18px;
+  border-top: 1px dashed #e5e7eb;
+}
+
+/* ===============================
+   FORM GROUPS
+=============================== */
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+/* GRID ROW */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* ===============================
+   INPUTS (PREMIUM LOOK)
+=============================== */
+
+.sell-form input,
+.sell-form select,
+.sell-form textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #e5e7eb;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  background: #fafbfc;
+}
+
+.sell-form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.sell-form input:focus,
+.sell-form select:focus,
+.sell-form textarea:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+
+/* ===============================
+   AMENITIES CHECKBOX GRID
+=============================== */
+
+.amenities-select {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.amenities-select label {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.amenities-select label:hover {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  transform: translateY(-2px);
+}
+
+.amenities-select input {
+  accent-color: #2563eb;
+}
+
+/* ===============================
+   FILE INPUT STYLE
+=============================== */
+
+.sell-form input[type="file"] {
+  padding: 10px;
+  background: #f9fafb;
+  border: 1.5px dashed #cbd5f5;
+  cursor: pointer;
+}
+
+/* ===============================
+   SUBMIT BUTTON (STRONG LOOK)
+=============================== */
+
+.submit-btn {
+  width: 100%;
+  margin-top: 34px;
+  padding: 15px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 12px 28px rgba(37,99,235,0.35);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(37,99,235,0.45);
+}
+
+/* NOTE TEXT */
+.note {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .submit-btn {
+    position: sticky;
+    bottom: 16px;
+  }
+}
